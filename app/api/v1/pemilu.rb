@@ -42,7 +42,7 @@ module Pemilu
           results: {
             count: reports.count,
             total: ElectionViolation.includes(:election_violation_tags).where(tags_search).references(:election_violation_tags).count,
-            stamps: reports
+            reports: reports
           }
         }
       end
