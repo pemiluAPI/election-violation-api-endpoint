@@ -14,7 +14,13 @@ module Pemilu
         # Set default limit
         limit = (params[:limit].to_i == 0 || params[:limit].empty?) ? 1000 : params[:limit]
         
-        tags_search = ["election_violation_tags.tag in (?)", tags] unless params[:tags].nil?
+        unless params[:tags].nil?
+          arr_tags = Array.new
+          tags.each do |tag|
+            arr_tags << tag.tr("_", " ")
+          end
+          tags_search = ["election_violation_tags.tag in (?)", arr_tags]
+        end
         
         ElectionViolation.includes(:election_violation_tags)          
           .where(tags_search)
