@@ -27,7 +27,7 @@ module Pemilu
           .references(:election_violation_tags)
           .limit(limit)
           .offset(params[:offset])
-          .order("str_to_date(tanggal_kejadian,'%Y-%m-%dd') desc")
+          .order("str_to_date(tanggal_kejadian,'%Y-%m-%d %H:%i') desc")
           .each do |report|
             tags_collection = params[:tags].nil? ? report.election_violation_tags : ElectionViolationTag.where("id_laporan = ?", report.id)
             reports << {
